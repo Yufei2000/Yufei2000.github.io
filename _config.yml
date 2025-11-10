@@ -23,7 +23,7 @@ repository               : "Yufei2000/Yufei2000.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "images/avatar.png"
+  avatar           : "avatar.png"
   name             : "Shi Yufei(师羽飞)"
   pronouns         : # example: "she/her"  
   bio              : "Ph.D. Student from NTU, interested in Video LLM and Medical AI"
