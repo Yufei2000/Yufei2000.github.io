@@ -1,9 +1,9 @@
 {% include base_path %}
 
-{%- comment -%} 取缩略图：优先 header.teaser，否则用站点默认 site.teaser {%- endcomment -%}
+{% comment %} 取缩略图：优先 header.teaser，否则用 site.teaser {% endcomment %}
 {% assign teaser = post.header.teaser | default: site.teaser %}
 
-{%- comment -%} 绝对 URL（含 ://）原样，否则交给 relative_url（会自动加 baseurl） {%- endcomment -%}
+{% comment %} 绝对 URL（含 ://）原样；否则交给 relative_url（自动补 baseurl） {% endcomment %}
 {% if teaser %}
   {% if teaser contains '://' %}
     {% assign teaser_url = teaser %}
@@ -21,56 +21,58 @@
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
 
-    {%- comment -%} list / grid 都显示左图 {%- endcomment -%}
+    {% comment %} list / grid 都显示左侧缩略图 {% endcomment %}
     {% if teaser_url %}
       <div class="archive__item-teaser">
         <img src="{{ teaser_url }}" alt="">
       </div>
     {% endif %}
 
-    <h2 class="archive__item-title" itemprop="headline">
-      {% if post.link %}
-        <a href="{{ post.link }}">{{ title }}</a>
-        <a href="{{ base_path }}{{ post.url }}" rel="permalink">
-          <i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span>
-        </a>
-      {% else %}
-        <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
+    <div class="archive__item-body">
+      <h2 class="archive__item-title" itemprop="headline">
+        {% if post.link %}
+          <a href="{{ post.link }}">{{ title }}</a>
+          <a href="{{ base_path }}{{ post.url }}" rel="permalink">
+            <i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span>
+          </a>
+        {% else %}
+          <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
+        {% endif %}
+      </h2>
+
+      {% comment %} 作者 + 发表去向 {% endcomment %}
+      {% if post.authors %}
+        <p class="page__meta">{{ post.authors }}</p>
       {% endif %}
-    </h2>
-
-    {# —— 作者 + 发表去向（更简单稳妥） —— #}
-    {% if post.authors %}
-      <p class="page__meta">{{ post.authors }}</p>
-    {% endif %}
-    {% if post.venue or post.date %}
-      <p class="page__meta">
-        {% if post.venue %}<i>{{ post.venue }}</i>{% endif %}
-        {% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}
-      </p>
-    {% endif %}
-
-    {# —— 可选摘要 —— #}
-    {% if post.excerpt and site.read_more != 'enabled' %}
-      <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
-    {% elsif post.excerpt and site.read_more == 'enabled' %}
-      <p class="archive__item-excerpt" itemprop="description">
-        <p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}
-          <strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong>
+      {% if post.venue or post.date %}
+        <p class="page__meta">
+          {% if post.venue %}<i>{{ post.venue }}</i>{% endif %}
+          {% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}
         </p>
-      </p>
-    {% endif %}
+      {% endif %}
 
-    {# —— 仅保留两个外链：Paper / Project —— #}
-    <p class="pub-links">
-      {% if post.paper %}
-        <a href="{{ post.paper }}" target="_blank" rel="noopener">[Paper]</a>
+      {% comment %} 可选摘要 {% endcomment %}
+      {% if post.excerpt and site.read_more != 'enabled' %}
+        <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
+      {% elsif post.excerpt and site.read_more == 'enabled' %}
+        <p class="archive__item-excerpt" itemprop="description">
+          <p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong>
+            <a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong>
+          </p>
+        </p>
       {% endif %}
-      {% if post.project %}
-        {% if post.paper %}&nbsp;{% endif %}
-        <a href="{{ post.project }}" target="_blank" rel="noopener">[Project]</a>
-      {% endif %}
-    </p>
+
+      {% comment %} 仅保留两个外链：Paper / Project {% endcomment %}
+      <p class="pub-links">
+        {% if post.paper %}
+          <a href="{{ post.paper }}" target="_blank" rel="noopener">[Paper]</a>
+        {% endif %}
+        {% if post.project %}
+          {% if post.paper %}&nbsp;{% endif %}
+          <a href="{{ post.project }}" target="_blank" rel="noopener">[Project]</a>
+        {% endif %}
+      </p>
+    </div>
 
   </article>
 </div>
