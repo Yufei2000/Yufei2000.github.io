@@ -36,13 +36,15 @@
       {% if post.authors %}
         <p class="pub-authors">
           {{ post.authors | replace: me, me_bold }}
-          {% if post.venue or post.date %}
-            <span class="pub-meta">
-              &mdash;
-              {% if post.venue %}<em>{{ post.venue }}</em>{% endif %}
-              {% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}
-            </span>
-          {% endif %}
+        </p>
+      {% endif %}
+
+      {% if post.venue or post.date %}
+        <p class="pub-venue">
+          <strong>
+            {% if post.venue %}{{ post.venue }}{% endif %}
+            {% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}
+          </strong>
         </p>
       {% endif %}
 
