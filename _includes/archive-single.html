@@ -31,23 +31,24 @@
     {% endif %}
 
     <div class="archive__item-body pub-body">
-      {# 题目：不再作为链接，只加粗 #}
+      {% comment %} 题目：不再作为链接，只加粗 {% endcomment %}
       <div class="pub-title"><strong>{{ title }}</strong></div>
 
-      {# 作者 + 发表去向 #}
+      {% comment %} 作者 + 发表去向（含年份） {% endcomment %}
       {% if post.authors %}
         <p class="pub-authors">
           {{ post.authors | replace: me, me_bold }}
-        </p>
-      {% endif %}
-      {% if post.venue or post.date %}
-        <p class="pub-venue">
-          {% if post.venue %}<em>{{ post.venue }}</em>{% endif %}
-          {% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}
+          {% if post.venue or post.date %}
+            <span class="pub-meta">
+              &mdash;
+              {% if post.venue %}<em>{{ post.venue }}</em>{% endif %}
+              {% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}
+            </span>
+          {% endif %}
         </p>
       {% endif %}
 
-      {# 两个外链：Paper / Project #}
+      {% comment %} 两个外链：Paper / Project {% endcomment %}
       <p class="pub-links">
         {% if post.paper %}
           <a class="pub-link" href="{{ post.paper }}" target="_blank" rel="noopener">[Paper]</a>
