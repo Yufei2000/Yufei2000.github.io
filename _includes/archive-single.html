@@ -1,21 +1,14 @@
 {% include base_path %}
 
-{%- comment -%} 统一拿到缩略图：header.teaser 优先；再回退到 site.teaser {%- endcomment -%}
+{%- comment -%} 取缩略图：优先 header.teaser，否则用站点默认 site.teaser {%- endcomment -%}
 {% assign teaser = post.header.teaser | default: site.teaser %}
 
-{%- comment -%}
-更稳妥地处理图片路径：
-- 绝对 URL（含 ://） -> 原样
-- 以 / 开头（站内绝对路径）-> 原样
-- 其他（相对路径）-> 视为位于 /images/ 下
-{%- endcomment -%}
+{%- comment -%} 绝对 URL（含 ://）原样，否则交给 relative_url（会自动加 baseurl） {%- endcomment -%}
 {% if teaser %}
   {% if teaser contains '://' %}
     {% assign teaser_url = teaser %}
-  {% elsif teaser startswith '/' %}
-    {% assign teaser_url = teaser | prepend: '' %}
   {% else %}
-    {% assign teaser_url = teaser | prepend: '/images/' | prepend: base_path %}
+    {% assign teaser_url = teaser | relative_url %}
   {% endif %}
 {% endif %}
 
@@ -28,9 +21,7 @@
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
 
-    {%- comment -%}
-    默认模板只在 grid 时显示 teaser，这里改为：list/grid 都显示（左图右文）。
-    {%- endcomment -%}
+    {%- comment -%} list / grid 都显示左图 {%- endcomment -%}
     {% if teaser_url %}
       <div class="archive__item-teaser">
         <img src="{{ teaser_url }}" alt="">
@@ -39,38 +30,38 @@
 
     <h2 class="archive__item-title" itemprop="headline">
       {% if post.link %}
-        <a href="{{ post.link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+        <a href="{{ post.link }}">{{ title }}</a>
+        <a href="{{ base_path }}{{ post.url }}" rel="permalink">
+          <i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span>
+        </a>
       {% else %}
         <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
       {% endif %}
     </h2>
 
-    {%- comment -%}
-    精简信息：仅展示作者与发表去向（venue + 年份）
-    - authors: 自定义字段（字符串）
-    - venue: 自定义字段（如 “ICCV 2025” 或 “ICCV, 2025”）
-    {%- endcomment -%}
+    {# —— 作者 + 发表去向（更简单稳妥） —— #}
     {% if post.authors %}
       <p class="page__meta">{{ post.authors }}</p>
     {% endif %}
-    {% if post.venue %}
-      <p class="page__meta"><i>{{ post.venue }}</i>{% unless post.venue contains post.date | date: "%Y" %}{% if post.date %}, {{ post.date | date: "%Y" }}{% endif %}{% endunless %}</p>
-    {% elsif post.date %}
-      <p class="page__meta"><i>{{ post.date | date: "%Y" }}</i></p>
+    {% if post.venue or post.date %}
+      <p class="page__meta">
+        {% if post.venue %}<i>{{ post.venue }}</i>{% endif %}
+        {% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}
+      </p>
     {% endif %}
 
-    {%- comment -%} 可选摘要 {%- endcomment -%}
+    {# —— 可选摘要 —— #}
     {% if post.excerpt and site.read_more != 'enabled' %}
       <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
     {% elsif post.excerpt and site.read_more == 'enabled' %}
-      <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
+      <p class="archive__item-excerpt" itemprop="description">
+        <p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}
+          <strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong>
+        </p>
+      </p>
     {% endif %}
 
-    {%- comment -%}
-    只保留两个外链：Paper / Project
-    - paper: 外链或站内链接（PDF 或页面均可）
-    - project: 外链（GitHub/Project page）
-    {%- endcomment -%}
+    {# —— 仅保留两个外链：Paper / Project —— #}
     <p class="pub-links">
       {% if post.paper %}
         <a href="{{ post.paper }}" target="_blank" rel="noopener">[Paper]</a>
