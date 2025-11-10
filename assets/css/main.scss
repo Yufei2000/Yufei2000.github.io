@@ -63,3 +63,68 @@
   .archive__item { display: block; }
   .archive__item-teaser { max-width: none; margin: 0 0 .5rem 0; }
 }
+/* ===== Publications 样式重写（图左文右 / 统一尺寸 / 留白分隔） ===== */
+.pub-item{
+  display:flex;
+  gap:12px;
+  padding:14px 0;
+  margin:0 0 10px;
+  border-bottom:1px solid #e9ecef;  /* 1. 每条之间有分隔与留白 */
+}
+
+.pub-thumb{
+  flex:0 0 132px;                   /* 3. 统一缩略图尺寸 */
+  max-width:132px;
+  margin:0;
+}
+.pub-thumb img{
+  width:132px;
+  height:98px;                      /* 132x98 约 4:3，可按需改 */
+  object-fit:cover;
+  display:block;
+  border-radius:4px;
+}
+
+.pub-body>*{ margin:0 0 .35rem; }
+
+.pub-title{
+  font-size:1.15rem;                /* 2. 题目不巨大、仅加粗 */
+  line-height:1.25;
+  color:#2b2b2b;
+}
+
+.pub-authors{
+  font-size:.98rem;                 /* 4. 作者字号更清楚 */
+  color:#4a4a4a;
+  margin-top:.15rem;
+}
+.pub-authors strong{                /* 5. 你的名字加粗 */
+  font-weight:700;
+}
+
+.pub-venue{
+  font-size:.95rem;
+  color:#6b6b6b;
+  font-style:italic;
+}
+
+.pub-links{
+  margin-top:.2rem;
+}
+.pub-link{
+  margin-right:10px;                /* 6. 两个链接在一行，间距统一 */
+  white-space:nowrap;
+  text-decoration:none;
+  border-bottom:1px dotted #79c0ff; /* 细点线样式，低调一点 */
+}
+.pub-link:hover{
+  border-bottom-style:solid;
+}
+
+@media (max-width: 640px){
+  .pub-item{ display:block; }
+  .pub-thumb{ max-width:none; margin:0 0 .5rem 0; }
+  .pub-thumb img{ width:100%; height:auto; }
+  .pub-title{ font-size:1.05rem; }
+}
+
