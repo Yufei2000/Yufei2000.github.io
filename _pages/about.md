@@ -14,3 +14,8 @@ I completed my master’s degree at the [Department of Computer Engineering](htt
 You can find my CV here: [Yufei Shi's Curriculum Vitae](../assets/CV-Shi_Yufei.pdf) and [Chinese CV](../assets/申请简历_师羽飞.pdf).
 
 [Email](mailto:yufei005@e.ntu.edu.sg) / [Github](https://github.com/Yufei2000) 
+
+## Recent News
+
+- [Seq. 2025] ColonNeRF: Hierarchical Neural Radiance Fields for High-Fidelity Long-Sequence Colon Reconstruction is accepted by the Neurocomputing 2025.
+- [Jun. 2025] PVChat: Personalized Video Chat with One-Shot Learning is accepted by ICCV 2025!
