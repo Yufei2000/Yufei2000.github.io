@@ -1,9 +1,9 @@
 {% include base_path %}
 
-{% comment %} 取缩略图：优先 header.teaser，否则用 site.teaser {% endcomment %}
+{% comment %} 取缩略图：优先 header.teaser，否则 site.teaser {% endcomment %}
 {% assign teaser = post.header.teaser | default: site.teaser %}
 
-{% comment %} 绝对 URL（含 ://）原样；否则交给 relative_url（自动补 baseurl） {% endcomment %}
+{% comment %} 绝对 URL（含 ://）原样；否则用 relative_url（自动补 baseurl） {% endcomment %}
 {% if teaser %}
   {% if teaser contains '://' %}
     {% assign teaser_url = teaser %}
@@ -21,7 +21,7 @@
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
 
-    {% comment %} list / grid 都显示左侧缩略图 {% endcomment %}
+    {% comment %} list / grid 都显示缩略图 {% endcomment %}
     {% if teaser_url %}
       <div class="archive__item-teaser">
         <img src="{{ teaser_url }}" alt="">
