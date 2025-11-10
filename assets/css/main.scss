@@ -41,3 +41,33 @@
     "vendor/font-awesome/solid",
     "vendor/font-awesome/brands"
 ;
+
+---
+---
+
+/* 先导入主题（如果你当前 main.scss 已经导入过，可不重复） */
+/* @import "minimal-mistakes/skins/default"; */
+/* @import "minimal-mistakes"; */
+
+/* 左图右文布局 */
+.archive__item {
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+}
+.archive__item-teaser {
+  flex: 0 0 180px;      /* 缩略图宽度可按需调整 */
+  max-width: 180px;
+  margin: 0;
+}
+.archive__item-teaser img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.archive__item-body > * { margin: 0 0 .35rem; }
+
+@media (max-width: 600px) {
+  .archive__item { display: block; }
+  .archive__item-teaser { max-width: none; margin: 0 0 .5rem 0; }
+}
