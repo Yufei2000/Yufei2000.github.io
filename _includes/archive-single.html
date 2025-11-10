@@ -1,9 +1,22 @@
 {% include base_path %}
 
-{% if post.header.teaser %}
-  {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
-{% else %}
-  {% assign teaser = site.teaser %}
+{%- comment -%} 统一拿到缩略图：header.teaser 优先；再回退到 site.teaser {%- endcomment -%}
+{% assign teaser = post.header.teaser | default: site.teaser %}
+
+{%- comment -%}
+更稳妥地处理图片路径：
+- 绝对 URL（含 ://） -> 原样
+- 以 / 开头（站内绝对路径）-> 原样
+- 其他（相对路径）-> 视为位于 /images/ 下
+{%- endcomment -%}
+{% if teaser %}
+  {% if teaser contains '://' %}
+    {% assign teaser_url = teaser %}
+  {% elsif teaser startswith '/' %}
+    {% assign teaser_url = teaser | prepend: '' %}
+  {% else %}
+    {% assign teaser_url = teaser | prepend: '/images/' | prepend: base_path %}
+  {% endif %}
 {% endif %}
 
 {% if post.id %}
@@ -14,15 +27,13 @@
 
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    {% if include.type == "grid" and teaser %}
+
+    {%- comment -%}
+    默认模板只在 grid 时显示 teaser，这里改为：list/grid 都显示（左图右文）。
+    {%- endcomment -%}
+    {% if teaser_url %}
       <div class="archive__item-teaser">
-        <img src=
-          {% if teaser contains "://" %}
-            "{{ teaser }}"
-          {% else %}
-            "{{ teaser | prepend: "/images/" | prepend: base_path }}"
-          {% endif %}
-          alt="">
+        <img src="{{ teaser_url }}" alt="">
       </div>
     {% endif %}
 
@@ -33,52 +44,42 @@
         <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
       {% endif %}
     </h2>
-    
-    {% if post.read_time %}
-      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
+
+    {%- comment -%}
+    精简信息：仅展示作者与发表去向（venue + 年份）
+    - authors: 自定义字段（字符串）
+    - venue: 自定义字段（如 “ICCV 2025” 或 “ICCV, 2025”）
+    {%- endcomment -%}
+    {% if post.authors %}
+      <p class="page__meta">{{ post.authors }}</p>
+    {% endif %}
+    {% if post.venue %}
+      <p class="page__meta"><i>{{ post.venue }}</i>{% unless post.venue contains post.date | date: "%Y" %}{% if post.date %}, {{ post.date | date: "%Y" }}{% endif %}{% endunless %}</p>
+    {% elsif post.date %}
+      <p class="page__meta"><i>{{ post.date | date: "%Y" }}</i></p>
     {% endif %}
 
-        {% if post.collection == 'teaching' %}
-          <p> {{ post.type }}, <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif post.collection == 'publications' %}
-          <p>Published in <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif post.date %}
-         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
-        {% endif %}
-
+    {%- comment -%} 可选摘要 {%- endcomment -%}
     {% if post.excerpt and site.read_more != 'enabled' %}
-    <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
+      <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
     {% elsif post.excerpt and site.read_more == 'enabled' %}
-    <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
+      <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
     {% endif %}
-    
-    {% if post.citation and post.paperurl and post.slidesurl and post.bibtexurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
-    {% elsif post.citation and post.paperurl and post.slidesurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">Download Slides</a></p>
-    {% elsif post.citation and post.paperurl and post.bibtexurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
-    {% elsif post.citation and post.paperurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a></p>
-    {% elsif post.citation and post.slidesurl and post.bibtexurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl}}">Download Bibtex</a></p>
-    {% elsif post.citation and post.slidesurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">Download Slides</a></p>
-    {% elsif post.citation and post.bibtexurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
-    {% elsif post.citation %}
-      <p>Recommended citation: {{ post.citation }}</p>
-    {% elsif post.paperurl and post.bibtexurl %}
-      <p><a href=" {{ post.paperurl }} ">Download Paper</a> | <a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
-    {% elsif post.paperurl %}
-      <p><a href=" {{ post.paperurl }} ">Download Paper</a></p>
-    {% elsif post.slidesurl and post.bibtexurl %}
-      <p><a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
-    {% elsif post.slidesurl %}
-      <p><a href="{{ post.slidesurl }}">Download Slides</a></p>
-    {% elsif post.bibtexurl %}
-      <p><a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
-    {% endif %}
+
+    {%- comment -%}
+    只保留两个外链：Paper / Project
+    - paper: 外链或站内链接（PDF 或页面均可）
+    - project: 外链（GitHub/Project page）
+    {%- endcomment -%}
+    <p class="pub-links">
+      {% if post.paper %}
+        <a href="{{ post.paper }}" target="_blank" rel="noopener">[Paper]</a>
+      {% endif %}
+      {% if post.project %}
+        {% if post.paper %}&nbsp;{% endif %}
+        <a href="{{ post.project }}" target="_blank" rel="noopener">[Project]</a>
+      {% endif %}
+    </p>
 
   </article>
 </div>
