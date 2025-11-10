@@ -7,6 +7,11 @@ entries_layout: list   # 让条目是“左图右文”的列表视图
 ---
 
 {% assign pubs = site.publications | sort: "date" | reverse %}
+
+<div class="page-nav page-nav--top">
+  <a class="btn btn--primary" href="{{ "/" | relative_url }}">← Back to Home</a>
+</div>
+
 {% for post in pubs %}
   {% include archive-single.html %}
 {% endfor %}
