@@ -3,7 +3,7 @@ title: "ColonNeRF: Neural Radiance Fields for High-Fidelity Long-Sequence Colono
 collection: publications
 permalink: /publication/Neurocomputing-2025
 date: 2025-03-01
-authors: "Yufei Shi, Beijia Lu, Jia-Wei Liu, Ming Li and Mike Zheng Shou."
+authors: "Yufei Shi, Beijia Lu, Jia-Wei Liu, Ming Li and Mike Zheng Shou"
 venue: "Neurocomputing"
 header:
   teaser: /images/ColonNeRF.png

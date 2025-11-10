@@ -31,10 +31,8 @@
     {% endif %}
 
     <div class="archive__item-body pub-body">
-      {% comment %} 题目：不再作为链接，只加粗 {% endcomment %}
       <div class="pub-title"><strong>{{ title }}</strong></div>
 
-      {% comment %} 作者 + 发表去向（含年份） {% endcomment %}
       {% if post.authors %}
         <p class="pub-authors">
           {{ post.authors | replace: me, me_bold }}
@@ -48,7 +46,6 @@
         </p>
       {% endif %}
 
-      {% comment %} 两个外链：Paper / Project {% endcomment %}
       <p class="pub-links">
         {% if post.paper %}
           <a class="pub-link" href="{{ post.paper }}" target="_blank" rel="noopener">[Paper]</a>
