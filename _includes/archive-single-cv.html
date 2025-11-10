@@ -1,9 +1,17 @@
 {% include base_path %}
 
-{% if post.header.teaser %}
-  {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
-{% else %}
-  {% assign teaser = site.teaser %}
+{%- comment -%} 统一拿 teaser：优先 header.teaser，其次 site.teaser {%- endcomment -%}
+{% assign teaser = post.header.teaser | default: site.teaser %}
+
+{%- comment -%}
+如果是绝对 URL（含 ://）就原样；否则交给 relative_url 处理（会正确加上 baseurl）。
+{%- endcomment -%}
+{% if teaser %}
+  {% if teaser contains '://' %}
+    {% assign teaser_url = teaser %}
+  {% else %}
+    {% assign teaser_url = teaser | relative_url %}
+  {% endif %}
 {% endif %}
 
 {% if post.id %}
@@ -14,29 +22,56 @@
 
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    <li>
-    {% if include.type == "grid" and teaser %}
+
+    {%- comment -%} list / grid 都显示左侧缩略图 {%- endcomment -%}
+    {% if teaser_url %}
       <div class="archive__item-teaser">
-        <img src=
-          {% if teaser contains "://" %}
-            "{{ teaser }}"
-          {% else %}
-            "{{ teaser | prepend: "/images/" | prepend: base_path }}"
-          {% endif %}
-          alt="">
+        <img src="{{ teaser_url }}" alt="">
       </div>
     {% endif %}
-    <h3 class="archive__item-title" itemprop="headline">
+
+    <h2 class="archive__item-title" itemprop="headline">
       {% if post.link %}
-        <a href="{{ post.link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+        <a href="{{ post.link }}">{{ title }}</a>
+        <a href="{{ base_path }}{{ post.url }}" rel="permalink">
+          <i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span>
+        </a>
       {% else %}
         <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
       {% endif %}
-    </h3>
-    {% if post.read_time %}
-      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
+    </h2>
+
+    {%- comment -%} 作者与发表去向（venue + 年份） {%- endcomment -%}
+    {% if post.authors %}
+      <p class="page__meta">{{ post.authors }}</p>
     {% endif %}
-    {% if post.venue%}<p class="archive__item-excerpt" itemprop="description">{{ post.citation }}</p> {% endif %}
-    </li>
- </article>
+    {% if post.venue %}
+      <p class="page__meta"><i>{{ post.venue }}</i>{% unless post.venue contains post.date | date: "%Y" %}{% if post.date %}, {{ post.date | date: "%Y" }}{% endif %}{% endunless %}</p>
+    {% elsif post.date %}
+      <p class="page__meta"><i>{{ post.date | date: "%Y" }}</i></p>
+    {% endif %}
+
+    {%- comment -%} 可选摘要 {%- endcomment -%}
+    {% if post.excerpt and site.read_more != 'enabled' %}
+      <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
+    {% elsif post.excerpt and site.read_more == 'enabled' %}
+      <p class="archive__item-excerpt" itemprop="description">
+        <p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong>
+          <a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong>
+        </p>
+      </p>
+    {% endif %}
+
+    {%- comment -%} 只保留两个外链：Paper / Project {%- endcomment -%}
+    <p class="pub-links">
+      {% if post.paper %}
+        <a href="{{ post.paper }}" target="_blank" rel="noopener">[Paper]</a>
+      {% endif %}
+      {% if post.project %}
+        {% if post.paper %}&nbsp;{% endif %}
+        <a href="{{ post.project }}" target="_blank" rel="noopener">[Project]</a>
+      {% endif %}
+    </p>
+
+  </article>
 </div>
