@@ -3,9 +3,8 @@
 
 /*
  * This file controls what is imported from /_sass
- *
- * Note that the files are processed in the order they are imported, so they are partly
-   sorted by the dependencies. Also, the first two lines of the file are required by Jekyll.
+ * The first two lines above are required by Jekyll.
+ * Only this entry SCSS needs front matter.
  */
 
 @import
@@ -42,21 +41,14 @@
     "vendor/font-awesome/brands"
 ;
 
----
----
-
-/* 先导入主题（如果你当前 main.scss 已经导入过，可不重复） */
-/* @import "minimal-mistakes/skins/default"; */
-/* @import "minimal-mistakes"; */
-
-/* 左图右文布局 */
+/* -------------------- Custom overrides: 左图右文 -------------------- */
 .archive__item {
   display: flex;
   gap: .75rem;
   align-items: flex-start;
 }
 .archive__item-teaser {
-  flex: 0 0 180px;      /* 缩略图宽度可按需调整 */
+  flex: 0 0 180px;   /* 缩略图宽度可按需调整 */
   max-width: 180px;
   margin: 0;
 }
