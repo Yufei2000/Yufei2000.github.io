@@ -41,10 +41,7 @@
 
       {% if post.venue or post.date %}
         <p class="pub-venue">
-          <strong>
-            {% if post.venue %}{{ post.venue }}{% endif %}
-            {% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}
-          </strong>
+          <strong>{% if post.venue %}{{ post.venue }}{% endif %}{% if post.date %}{% if post.venue %}, {% endif %}{{ post.date | date: "%Y" }}{% endif %}</strong>
         </p>
       {% endif %}
 
@@ -56,6 +53,10 @@
           <a class="pub-link" href="{{ post.project }}" target="_blank" rel="noopener">[Project]</a>
         {% endif %}
       </p>
+
+      {% if post.summary %}
+        <p class="pub-summary">{{ post.summary }}</p>
+      {% endif %}
     </div>
 
   </article>

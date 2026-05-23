@@ -1,14 +1,14 @@
 {
   "basics": {
-    "name": "Your Sidebar Name",
-    "email": "none@example.org",
+    "name": "Shi Yufei",
+    "email": "yufei005@e.ntu.edu.sg",
     "phone": "",
-    "website": "https://academicpages.github.io",
-    "summary": "Currently employed at Red Brick University. Short biography for the left-hand sidebar",
+    "website": "https://Yufei2000.github.io",
+    "summary": "Currently employed at Nanyang Technological University. Ph.D. Student from NTU, interested in Video LLM and Medical AI",
     "location": {
       "address": "",
       "postalCode": "",
-      "city": "Earth",
+      "city": "Singapore",
       "countryCode": "US",
       "region": ""
     },
@@ -16,17 +16,12 @@
       {
         "network": "Google Scholar",
         "username": "",
-        "url": "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-      },
-      {
-        "network": "ORCID",
-        "username": "",
-        "url": "https://orcid.org/yourorcidurl"
+        "url": "https://scholar.google.com/citations?user=rpnlkwEAAAAJ"
       },
       {
         "network": "GitHub",
-        "username": "academicpages",
-        "url": "https://github.com/academicpages"
+        "username": "Yufei2000",
+        "url": "https://github.com/Yufei2000"
       }
     ]
   },
@@ -66,32 +61,53 @@
   "references": [],
   "publications": [
     {
-      "name": "Paper Title Number 1",
-      "publisher": "Journal 1",
-      "releaseDate": "2009-10-01",
-      "website": "https://academicpages.github.io/files/paper1.pdf",
-      "summary": "This paper is about the number 1. The number 2 is left for future work."
+      "name": "One Sentence, One Drama: Personalized Short-Form Drama Generation via Multi-Agent Systems",
+      "publisher": "Under Review",
+      "releaseDate": "2026-05-21",
+      "website": "https://arxiv.org/abs/2605.22144",
+      "summary": "A multi-agent system for single-sentence to short-drama generation with pacing, narrative coherence, and 3D consistency."
     },
     {
-      "name": "Paper Title Number 2",
-      "publisher": "Journal 1",
-      "releaseDate": "2010-10-01",
-      "website": "https://academicpages.github.io/files/paper2.pdf",
-      "summary": "This paper is about the number 2. The number 3 is left for future work."
+      "name": "4DPC^2hat: Towards Dynamic Point Cloud Understanding with Failure-Aware Bootstrapping",
+      "publisher": "ICML",
+      "releaseDate": "2026-05-01",
+      "website": "https://arxiv.org/abs/2602.03890",
+      "summary": "A failure-aware framework that helps multimodal large language models understand dynamic point cloud sequences."
     },
     {
-      "name": "Paper Title Number 3",
-      "publisher": "Journal 1",
-      "releaseDate": "2015-10-01",
-      "website": "https://academicpages.github.io/files/paper3.pdf",
-      "summary": "This paper is about the number 3. The number 4 is left for future work."
+      "name": "RIHA: Report-Image Hierarchical Alignment for Radiology Report Generation",
+      "publisher": "IEEE JBHI",
+      "releaseDate": "2026-03-04",
+      "website": "https://doi.org/10.1109/JBHI.2026.3670023",
+      "summary": "A hierarchical alignment framework for radiology report generation that aligns visual and textual features across paragraph, sentence, and word levels."
     },
     {
-      "name": "Paper Title Number 4",
-      "publisher": "GitHub Journal of Bugs",
-      "releaseDate": "2024-02-17",
-      "website": "https://academicpages.github.io/files/paper3.pdf",
-      "summary": "This paper is about fixing template issue #693."
+      "name": "SciEducator: Scientific Video Understanding and Educating via Deming-Cycle Multi-Agent System",
+      "publisher": "CVPR",
+      "releaseDate": "2026-02-02",
+      "website": "https://arxiv.org/abs/2511.17943",
+      "summary": "The first multi-agent system for scientific video understanding and education."
+    },
+    {
+      "name": "PVChat: Personalized Video Chat with One-Shot Learning",
+      "publisher": "ICCV",
+      "releaseDate": "2025-03-01",
+      "website": "https://openaccess.thecvf.com/content/ICCV2025/papers/Shi_PVChat_Personalized_Video_Chat_with_One-Shot_Learning_ICCV_2025_paper.pdf",
+      "summary": ""
+    },
+    {
+      "name": "ColonNeRF: Neural Radiance Fields for High-Fidelity Long-Sequence Colonoscopy Reconstruction",
+      "publisher": "Neurocomputing",
+      "releaseDate": "2025-03-01",
+      "website": "https://showlab.github.io/ColonNeRF/static/paper/ColonNeRF.pdf",
+      "summary": ""
+    },
+    {
+      "name": "Tune-A-Video: One-Shot Tuning of Image Diffusion Models for Text-to-Video Generation",
+      "publisher": "ICCV",
+      "releaseDate": "2023-03-01",
+      "website": "https://arxiv.org/abs/2212.11565",
+      "summary": ""
     }
   ],
   "presentations": [
