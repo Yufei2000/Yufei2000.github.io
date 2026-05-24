@@ -97,9 +97,13 @@
 .pub-thumb img{
   width:220px;
   height:160px;                     /* 220x160 约 4:3 */
-  object-fit:cover;
+  object-fit:contain;
+  object-position:center;
   display:block;
   border-radius:4px;
+  background:#fff;
+  border:1px solid #e9ecef;
+  box-sizing:border-box;
 }
 
 .pub-body>*{ margin:0 0 .35rem; }
