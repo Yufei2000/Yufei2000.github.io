@@ -23,3 +23,10 @@ You can find my CV here: [Yufei Shi's Curriculum Vitae](../assets/CV-Shi_Yufei.p
 - [Feb. 2026] SciEducator: Scientific Video Understanding and Educating via Deming-Cycle Multi-Agent System is accepted by ***CVPR 2026***!
 - [Sep. 2025] ColonNeRF: Hierarchical Neural Radiance Fields for High-Fidelity Long-Sequence Colon Reconstruction is accepted by ***Neurocomputing 2025***.
 - [Jun. 2025] PVChat: Personalized Video Chat with One-Shot Learning is accepted by ***ICCV 2025***!
+
+## Publications
+
+{% assign pubs = site.publications | sort: "date" | reverse %}
+{% for post in pubs %}
+  {% include archive-single.html %}
+{% endfor %}
