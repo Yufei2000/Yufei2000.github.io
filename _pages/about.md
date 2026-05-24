@@ -26,7 +26,9 @@ You can find my CV here: [Yufei Shi's Curriculum Vitae](../assets/CV-Shi_Yufei.p
 
 ## Publications
 
+<div class="home-publications">
 {% assign pubs = site.publications | sort: "date" | reverse %}
 {% for post in pubs %}
   {% include archive-single.html %}
 {% endfor %}
+</div>
