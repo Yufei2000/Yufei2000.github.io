@@ -17,6 +17,7 @@ You can find my CV here: [Yufei Shi's Curriculum Vitae](../assets/CV-Shi_Yufei.p
 
 ## Recent News
 
+- [Jun. 2026] Seeing Through Multiple Views: Parameter-Efficient Fine-Tuning via Selective Neurons for Consistent Radiology Report Generation is accepted by ***MICCAI 2026***!
 - [May. 2026] One Sentence, One Drama: Personalized Short-Form Drama Generation via Multi-Agent Systems is available on ***arXiv***.
 - [May. 2026] 4DPC^2hat: Towards Dynamic Point Cloud Understanding with Failure-Aware Bootstrapping is accepted by ***ICML 2026***!
 - [Mar. 2026] RIHA: Report-Image Hierarchical Alignment for Radiology Report Generation is published online in ***IEEE JBHI***!
