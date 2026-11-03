@@ -17,6 +17,8 @@ You can find my CV here: [Yufei Shi's Curriculum Vitae](../assets/CV-Shi_Yufei.p
 
 ## Recent News
 
+- [Nov. 2026] PVChat-R1: Reinforced Personalized Video Chat with One-Shot Learning is under review.
+- [Sep. 2026] AV-GRPO: Modality-Anchored Decoupling Diffusion Reinforcement Learning for Joint Audio-Video Generation is available on [arXiv](https://arxiv.org/abs/2609.29816).
 - [Jun. 2026] Seeing Through Multiple Views: Parameter-Efficient Fine-Tuning via Selective Neurons for Consistent Radiology Report Generation is accepted by ***MICCAI 2026***!
 - [May. 2026] One Sentence, One Drama: Personalized Short-Form Drama Generation via Multi-Agent Systems is available on ***arXiv***.
 - [May. 2026] 4DPC^2hat: Towards Dynamic Point Cloud Understanding with Failure-Aware Bootstrapping is accepted by ***ICML 2026***!
